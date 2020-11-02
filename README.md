@@ -31,7 +31,13 @@ Or
 ```bash
 stx_T0247-1-1-4year_mid_right.vtk  
 ```
-The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.
+- The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
+
+3.) fullAutomation.py
+- Download and open fullAutomation.py using a text editor. 
+- Change the variable 'brainDir' to the path name of the keychain directory. Also, change the variable 'nametagDir' to the path name of the nametag directory.
+- You can then run the script and it will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + <some-iteration-number>
+
 ## Contributors
 
 Henry Pehr, Christian Nell, Martin Styner (UNC-Chapel Hill)
