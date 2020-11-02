@@ -12,16 +12,20 @@
 
 2.) keyChainNameTagCreator.bash  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and use a text editor to open the bash file.  
-- Change the variable named 'saveDir' to whatever you would like the directory that holds the saved nameags in called.  
+- Change the variable named 'saveDir' to whatever you would like the directory that holds the saved nametags in called.  
 - Change the variable named 'nameTagInputDir' to the directory that has the input brain surfaces.  
 - Make sure that the 'saveDir', 'nameTagInputDir' and keyChainTitle.scad are all in the same directory.  
 - Save and close the text editor. Then click on the keyChainNameTagCreator.bash file.  
 - If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
-
 ```bash
 chmod 755 keyChainNameTagCreator.bash 
 ```
-
+- If that does not work then run another chmod command that will give your device permission to run the executable.
+- After it is done running you will have a directory containing nametags with a substring title based on the surface filename.
+**Note**
+The surface filename needs to be in one of the following example formats to work.  
+stx_neo-0207-1-1-1year-mid_left.vtk
+stx_T0247-1-1-4year_mid_right.vtk  
 ## Contributors
 
 Henry Pehr, Christian Nell, Martin Styner (UNC-Chapel Hill)
