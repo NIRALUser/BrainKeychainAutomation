@@ -39,6 +39,11 @@ stx_T0247-1-1-4year_mid_right.vtk
 - Change the variable 'brainDir' to the pathname of the keychain directory. Also, change the variable 'nametagDir' to the pathname of the nametag directory.
 - You can then run the script and it will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number'
 
+4.) Printing
+- Download slicing software such as Ultimaker Cura and open it.
+- Drag a print scene into the software and configure the printing setting to how you would like.
+- Click slice and let the software add support structures. Then you are ready to print!
+
 ## Contributors
 
 Henry Pehr, Christian Nell, Martin Styner (UNC-Chapel Hill)
