@@ -24,7 +24,7 @@ chmod 755 keyChainNameTagCreator.bash
 - After it is done running you will have a directory containing nametags with a substring title based on the surface filename.  
 **Note**  
 The surface filename needs to be in one of the following example formats to work.  
-stx_neo-0207-1-1-1year-mid_left.vtk
+stx_neo-0207-1-1-1year-mid_left.vtk  
 stx_T0247-1-1-4year_mid_right.vtk  
 ## Contributors
 
