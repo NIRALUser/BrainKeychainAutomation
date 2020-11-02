@@ -16,7 +16,11 @@
 - Change the variable named 'nameTagInputDir' to the directory that has the input brain surfaces.  
 - Make sure that the 'saveDir', 'nameTagInputDir' and keyChainTitle.scad are all in the same directory.  
 - Save and close the text editor. Then click on the keyChainNameTagCreator.bash file.  
-- If it says you do not have permission to run this file, you may need to run this command.  
+- If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
+
+```bash
+chmod 755 keyChainNameTagCreator.bash 
+```
 
 ## Contributors
 
