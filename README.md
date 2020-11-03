@@ -32,8 +32,8 @@ Or
 ```bash
 stx_T0247-1-1-4year_mid_right.vtk  
 ```
-- The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
-- Also, the first couple of commands are changing the directory in the script to the one where all the files are. These 'cd' commands will need a different working directory location than what is there now (the one in there now is the location of the files on my device).  
+The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
+Also, the first couple of commands are changing the directory in the script to the one where all the files are. These 'cd' commands will need a different working directory location than what is there now (the one in there now is the location of the files on my device).  
 
 3.) fullAutomation.py
 - Download and open fullAutomation.py using a text editor. 
