@@ -23,7 +23,9 @@ chmod 755 keyChainNameTagCreator.bash
 ```
 - If that does not work then run another chmod command that will give your device permission to run the executable.  
 - After it is done running you will have a directory containing nametags with a substring title based on the surface filename.  
+
 **Note**  
+
 * The surface filename needs to be in one of the following example formats to work.  
 ```bash
 stx_neo-0207-1-1-1year-mid_left.vtk  
