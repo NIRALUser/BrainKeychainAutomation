@@ -2,7 +2,7 @@
 
 ## How To
 
-1.) BrainKeyCreatorExtension.py  
+### 1.) BrainKeyCreatorExtension.py  
 - Download 3D Slicer and the MeshToLabelMap extension (you will need to reload 3D Slicer after doing so).  
 - Download BrainKeyCreatorExtension.py. Then click on 'edit' at the top bar when you are in 3D slicer and then 'Application Settings'.  
 - Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional module 
