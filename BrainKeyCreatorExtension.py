@@ -8,6 +8,7 @@ import SimpleITK as sitk
 global sitkUtils
 import sitkUtils
 import numpy
+import subprocess
 
 
 #
@@ -60,13 +61,14 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
     # Adds search directory text box
     self.searchDir = qt.QLineEdit()
-    self.searchDir.placeholderText = "/Users/sample/search/directory/.../"
+    self.searchDir.placeholderText = "/Users/sample/search/directory/..."
     parametersFormLayout.addRow("Search directory", self.searchDir)
+    '''
     # Adds save input directory text box
     self.saveDir = qt.QLineEdit()
     self.saveDir.placeholderText = "/Users/sample/save/directory/.../"
     parametersFormLayout.addRow("Save directory", self.saveDir)
-
+    '''
 
     '''
     self.inputLeft = slicer.qMRMLNodeComboBox()
@@ -141,7 +143,7 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     #self.inputLeft.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
     #self.inputRight.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
     self.searchDir.textChanged.connect(self.onSelect)
-    self.saveDir.textChanged.connect(self.onSelect)
+        #self.saveDir.textChanged.connect(self.onSelect)
     # self.outputSelector.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
 
     # Add vertical spacer
@@ -155,11 +157,13 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
   def onSelect(self):   
     #self.applyButton.enabled = self.inputLeft.currentNode() and self.inputRight.currentNode()
-    self.applyButton.enabled = self.searchDir.isModified() and self.saveDir.isModified()
+    self.applyButton.enabled = self.searchDir.isModified()
 
   def onApplyButton(self):
     logic = BrainKeyCreatorExtensionLogic()
     enableScreenshotsFlag = self.enableScreenshotsFlagCheckBox.checked
+    self.saveDir = os.path.split(self.searchDir.text)[0] + '/Keychains/'
+    subprocess.call(['mkdir', self.saveDir])
     # leftVTKSearch will be used to place all VTK files that contain 'left'
     # rightVTKSearch will be used to place all VTK files that contain 'right'
     # goodVTKPairs will be used to pair and store matching filenames
@@ -185,11 +189,11 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Go through all the found VTK pairs and run the logic on them (and eventually save)
     for entry in goodVTKPairs:
         # Load nodes into scence
-        leftInput = slicer.util.loadModel(self.searchDir.text+entry[0], returnNode=True)[1]
-        rightInput = slicer.util.loadModel(self.searchDir.text+entry[1], returnNode=True)[1]
+        leftInput = slicer.util.loadModel(self.searchDir.text + '/'+entry[0], returnNode=True)[1]
+        rightInput = slicer.util.loadModel(self.searchDir.text+ '/' + entry[1], returnNode=True)[1]
         # Create keychain name that will be saved at the end of saveDir file path
         keyChainName = entry[0].replace('.vtk','').replace('left','')
-        savedFilePath = str(self.saveDir.text+keyChainName)
+        savedFilePath = str(self.saveDir+keyChainName)
         # Add KeyChain.stl to end of file path so it is easy to differentiate between pre-run files and key chain files
         if(keyChainName[len(keyChainName)-1]=='_'):
             savedFilePath = savedFilePath + "keyChain.stl"
