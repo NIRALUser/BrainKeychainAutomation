@@ -3,10 +3,22 @@ import vtk
 import itertools
 
 def main():
-
+    # Gets user input for input directories
+    getInput = True
+    while getInput:
+        brainDir = input("Keychain directory location: ")
+        if not(os.path.isdir(brainDir)):
+            print("Directory does not exist")
+        else:
+            getInput = False
+    getInput = True
+    while getInput:
+        nametagDir = input("Nametag directory location: ")
+        if not(os.path.isdir(nametagDir)):
+            print("Directory does not exist")
+        else:
+            getInput = False
     # Match keychains and nametags (will be used later when rest of script is working)
-    brainDir = "./Priority3SaveDir/"
-    nametagDir = "./Priority3NameTags/"
     matchedBrainTags = {}
     brainScans = os.listdir(brainDir)
     # Matches the two if the brain filename contains the tag filename
@@ -14,7 +26,6 @@ def main():
         for brain in brainScans:
             if(filename[:len(filename)-4] in brain):
                 matchedBrainTags[nametagDir + filename] = brainDir + brain
-
     # Hard cooded translation for keychains
     switcherBrain = {0: [-50,60,0],
     1: [0,60,0],
@@ -114,8 +125,8 @@ def main():
 
         sceneIterator += 1
 
-    '''
     # Create test visual of what the scene looks like
+    '''
     mapper = vtk.vtkPolyDataMapper()
     mapper.SetInputConnection(appendFilter.GetOutputPort())
 
@@ -135,6 +146,5 @@ def main():
     renderWindowInteractor.Start()
     '''
     return True
-
 
 main()
