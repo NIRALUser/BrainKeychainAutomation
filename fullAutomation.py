@@ -4,7 +4,7 @@ import itertools
 import subprocess
 
 def main():
-    #subprocess.call('./keyChainNameTagCreator.bash')
+    subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
     brainDir = os.getcwd() + "/Keychains/"
     nametagDir = os.getcwd() + "/Nametags/"
