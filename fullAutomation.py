@@ -1,23 +1,14 @@
 import os
 import vtk
 import itertools
+import subprocess
 
 def main():
+    #subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
-    getInput = True
-    while getInput:
-        brainDir = input("Keychain directory location: ")
-        if not(os.path.isdir(brainDir)):
-            print("Directory does not exist")
-        else:
-            getInput = False
-    getInput = True
-    while getInput:
-        nametagDir = input("Nametag directory location: ")
-        if not(os.path.isdir(nametagDir)):
-            print("Directory does not exist")
-        else:
-            getInput = False
+    brainDir = os.getcwd() + "/Keychains/"
+    nametagDir = os.getcwd() + "/Nametags/"
+    subprocess.call(['mkdir', os.getcwd() + '/Scenes'])
     # Match keychains and nametags (will be used later when rest of script is working)
     matchedBrainTags = {}
     brainScans = os.listdir(brainDir)
@@ -41,7 +32,7 @@ def main():
     4: [-40,0,0],
     5: [10,0,0]}
 
-    sceneCount = len(matchedBrainTags) % 6
+    sceneCount = len(matchedBrainTags) % 6  # Finds number of scenes that will be printed
     sceneIterator = 0
     totalBrainLength = len(matchedBrainTags)
     print(totalBrainLength)
@@ -119,7 +110,7 @@ def main():
 
         # Write print scene
         writer = vtk.vtkSTLWriter()
-        writer.SetFileName('keyChainScene' + str(sceneIterator) + '.stl')
+        writer.SetFileName('./Scenes/keyChainScene' + str(sceneIterator) + '.stl')
         writer.SetInputConnection(appendFilter.GetOutputPort())
         writer.Write()
 
