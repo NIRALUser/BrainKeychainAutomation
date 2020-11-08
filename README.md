@@ -39,7 +39,10 @@ stx_T0247-1-1-4year_mid_right.vtk
 
 3.) fullAutomation.py
 - Download and open fullAutomation.py using a text editor. 
-- Change the variable 'brainDir' to the pathname of the keychain directory. Also, change the variable 'nametagDir' to the pathname of the nametag directory.
+- Run the script from a terminal and input the directory paths for the keychains and nametags as it prompts.  
+```bash
+(Ex. 'Keychain directory location: /Users/christiannell/desktop/research/niral/fullAutomation/Priority3SaveDir/'
+ ``` 
 - You can then run the script and it will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number'
 
 4.) Printing
