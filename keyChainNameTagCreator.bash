@@ -1,6 +1,6 @@
 #!/bin/bash
 cd /Users/christiannell/desktop/research/NIRAL/fullAutomation
-saveDir="Priority3NameTags"
+saveDir="Nametags"
 openSCAD_file="keyChainTitle.scad"
 nameTagInputDir="Priority3"
 subStr=""
