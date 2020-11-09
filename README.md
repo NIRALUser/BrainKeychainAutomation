@@ -38,9 +38,6 @@ stx_T0247-1-1-4year_mid_right.vtk
 ### 3.) sceneCreator.py
 - Download and make sure the file is in the same directory as Keychains and Nametags.  
 - Run sceneCreator.py in a terminal.  
-```bash
-Keychain directory location: /Users/christiannell/desktop/research/niral/fullAutomation/Priority3SaveDir/
- ``` 
 - It will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
 ### 4.) Printing
