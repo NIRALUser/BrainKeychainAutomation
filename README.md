@@ -7,16 +7,14 @@
 - Download BrainKeyCreatorExtension.py. Then click on 'edit' at the top bar when you are in 3D slicer and then 'Application Settings'.  
 - Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional module 
 s' section.  
-- You should then be able to load the extension and specify a directory for input surfaces as well as a directory to save the keychain images in (be sure to follow the example format that is in as a placeholder).  
+- You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder).  
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module will take a bit to process.  
-- After it has finished running you should have a directory (that you specified) filled with brain keychains.  
+- After it has finished running you should have a directory called keychains in the same directory as your input directory.  
 
 ### 2.) keyChainNameTagCreator.bash  
-- Download keyChainTitle.scad and keyChainNameTagCreator.bash and use a text editor to open the bash file.  
-- Change the variable named 'saveDir' to whatever you would like the directory that holds the saved nametags in called.  
-- Change the variable named 'nameTagInputDir' to the directory that has the input brain surfaces.  
-- Make sure that the 'saveDir', 'nameTagInputDir' and keyChainTitle.scad are all in the same directory.  
-- Save and close the text editor. Then click on the keyChainNameTagCreator.bash file.  
+- Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
+- Also make sure keyChainTitle.scad is in same directory.  
+- Then click on the keyChainNameTagCreator.bash file.  
 - If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
 ```bash
 chmod 755 keyChainNameTagCreator.bash 
@@ -37,13 +35,13 @@ stx_T0247-1-1-4year_mid_right.vtk
 * The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
 * Also, the first couple of commands are changing the directory in the script to the one where all the files are. These 'cd' commands will need a different working directory location than what is there now (the one in there now is the location of the files on my device).  
 
-### 3.) fullAutomation.py
-- Download and open fullAutomation.py using a text editor. 
-- Run the script from a terminal and input the directory paths for the keychains and nametags as it prompts. Example below.
+### 3.) sceneCreator.py
+- Download and make sure the file is in the same directory as Keychains and Nametags.  
+- Run sceneCreator.py in a terminal.  
 ```bash
 Keychain directory location: /Users/christiannell/desktop/research/niral/fullAutomation/Priority3SaveDir/
  ``` 
-- You can then run the script and it will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number'
+- It will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
 ### 4.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
