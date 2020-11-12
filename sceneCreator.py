@@ -4,7 +4,7 @@ import itertools
 import subprocess
 
 def main():
-    subprocess.call('./keyChainNameTagCreator.bash')
+    #subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
     brainDir = os.getcwd() + "/Keychains/"
     nametagDir = os.getcwd() + "/Nametags/"
@@ -35,7 +35,6 @@ def main():
     sceneCount = len(matchedBrainTags) % 6  # Finds number of scenes that will be printed
     sceneIterator = 0
     totalBrainLength = len(matchedBrainTags)
-    print(totalBrainLength)
     macthedKeys = list(matchedBrainTags.keys())
 
     while sceneIterator < sceneCount:
@@ -56,6 +55,8 @@ def main():
             if(bounds[4] > keychainZMax):
                 keychainZMax = bounds[4]
             zBoundCounter += 1
+            if(zBoundCounter == totalBrainLength):
+                zBoundCounter = 7
 
         coordinateCount = 0 # Used to keep track of which translation needs to be done for what part of the scene the loop is on.
         appendFilter = vtk.vtkAppendPolyData()
