@@ -19,7 +19,6 @@ for FILE in *.vtk;
 		elif [ "${FILE:0:11}" == "stx_noscale" ]; then
 			subStr="${FILE:12:6}"
 			echo $subStr
-			echo hi
 		elif [ "${FILE:0:4}" == "stx_" ]; then
 			pat="([^_]*)-([^-]*)"
 			[[ $FILE =~ $pat ]]	
