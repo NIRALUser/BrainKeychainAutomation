@@ -112,10 +112,11 @@ def main():
     while sceneIterator < sceneCount:
         i = 0 # Iterator for deleting already used keychains
         createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis)
-        while(i < brainsPerScene):
-            del matchedBrainTags[finalMacthedKeys[i]]
-            i += 1
-        finalMacthedKeys = finalMacthedKeys[brainsPerScene:]
+        if(not(sceneIterator == sceneCount - 1)):
+            while(i < brainsPerScene):
+                del matchedBrainTags[finalMacthedKeys[i]]
+                i += 1
+            finalMacthedKeys = finalMacthedKeys[brainsPerScene:]
         sceneIterator += 1
 
     # Create test visual of what the scene looks like
