@@ -89,7 +89,7 @@ def main():
     inputWidth = int(input('Enter printer surface width in millimeters: '))
     inputHeight = int(input('Enter printer surface height in millimeters: '))
     brainsPerXAxis = math.floor(inputWidth / 50)
-    brainsPerYAxis = math.floor(inputHeight / 50)
+    brainsPerYAxis = math.floor(inputHeight / 70)
     brainsPerScene = brainsPerXAxis * brainsPerYAxis
     ##subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
