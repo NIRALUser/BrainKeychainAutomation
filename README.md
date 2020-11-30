@@ -3,17 +3,24 @@
 ## How To
 
 ### 1.) BrainKeyCreatorExtension.py  
-- Download [3D Slicer](https://download.slicer.org/ "3D Slicer") and the MeshToLabelMap extension (you will need to reload 3D Slicer after doing so).  
-- Download BrainKeyCreatorExtension.py. Then click on 'edit' at the top bar when you are in 3D slicer and then 'Application Settings'.  
-- Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional modules section.  
-- You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder).  
-- Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module will take a bit to process.  
-- After it has finished running you should have a directory called keychains in the same directory as your input directory.  
+- Download [3D Slicer](https://download.slicer.org/ "3D Slicer").  
+- Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
+- Click 'Install Extensions', then click the search bar in the top right corner.  
+- Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
+- Download BrainKeyCreatorExtension.py. Open 3D Slicer again and click on 'edit' at the very top of your screen and then click on 'Application Settings'.  
+- Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional modules' section. 
+- Close and then open, or restart 3D Slicer so that the module will load into your extension list.
+- To find the module, click on the search bar to the right of 'modules' on the home screen of 3D Slicer and search BrainKeyCreatorExtension.
+- You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder).
+- Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
+- After it has finished running you should have a directory called 'Keychains' in the same directory as your input directory.  
 
 ### 3.) sceneCreator.py
-- Download and make sure the file is in the same directory as Keychains and Nametags.  
+- Download and make sure the file is in the same directory as Keychains. 
 - Run sceneCreator.py in a terminal.  
-- It will create keychain/nametag scenes with up to 6 matches in each scene. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
+- Specify a print surface width and length. Each keychain should be less than 50 mm in length and in width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
+- This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.
+- The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
 ### 3.) keyChainNameTagCreator.bash  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
@@ -46,7 +53,6 @@ stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 ```
 
 * The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
-* Also, the first couple of commands are changing the directory in the script to the one where all the files are. These 'cd' commands will need a different working directory location than what is there now (the one in there now is the location of the files on my device).  
 
 ### 4.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
