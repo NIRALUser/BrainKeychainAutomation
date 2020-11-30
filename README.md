@@ -35,6 +35,11 @@ Or
 ```bash
 stx_noscale_241033_V06_t1w_RAI_mid_left.vtk
 ```
+or
+```bash
+stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
+```
+
 * The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
 * Also, the first couple of commands are changing the directory in the script to the one where all the files are. These 'cd' commands will need a different working directory location than what is there now (the one in there now is the location of the files on my device).  
 
