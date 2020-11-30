@@ -4,6 +4,9 @@
 
 ## Prerequisites
 
+- Linux, Unix, or Unix like environment (not tested on windows).  
+- Python installed on your machine. 
+
 ## How To
 
 ### 1.) BrainKeyCreatorExtension.py  
