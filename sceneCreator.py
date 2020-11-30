@@ -86,10 +86,12 @@ def createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis,
     return True
 
 def main():
+    print('This script assumes each keychain is no larger than 50 mm in width and 50 mm in length.')
+    print('Each keychain and nametag are allocated 50 mm in width and 70 mm in length for spacing.')
     inputWidth = int(input('Enter printer surface width in millimeters: '))
-    inputHeight = int(input('Enter printer surface height in millimeters: '))
+    inputLength = int(input('Enter printer surface length in millimeters: '))
     brainsPerXAxis = math.floor(inputWidth / 50)
-    brainsPerYAxis = math.floor(inputHeight / 70)
+    brainsPerYAxis = math.floor(inputLength / 70)
     brainsPerScene = brainsPerXAxis * brainsPerYAxis
     subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
