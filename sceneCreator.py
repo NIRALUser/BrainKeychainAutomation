@@ -91,7 +91,7 @@ def main():
     brainsPerXAxis = math.floor(inputWidth / 50)
     brainsPerYAxis = math.floor(inputHeight / 70)
     brainsPerScene = brainsPerXAxis * brainsPerYAxis
-    ##subprocess.call('./keyChainNameTagCreator.bash')
+    subprocess.call('./keyChainNameTagCreator.bash')
     # Gets user input for input directories
     brainDir = os.getcwd() + "/Keychains/"
     nametagDir = os.getcwd() + "/Nametags/"
