@@ -55,4 +55,4 @@ stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 
 ## Contributors
 
-Henry Pehr, Christian Nell, Martin Styner (UNC-Chapel Hill)
+Christian Nell, Henry Pehr, Martin Styner (UNC-Chapel Hill)
