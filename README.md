@@ -22,16 +22,16 @@
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
 - After it has finished running you should have a directory called 'Keychains' in the same directory as your input directory.  
 
-### 3.) sceneCreator.py
+### 2.) sceneCreator.py
 - Download and make sure the file is in the same directory as Keychains. 
 - Run sceneCreator.py in a terminal.  
-- Specify a print surface width and length. Each keychain should be less than 50 mm in length and in width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
+- Specify a print surface width and length. Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
 - This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.
 - The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
 ### 3.) keyChainNameTagCreator.bash  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
-- Also make sure keyChainTitle.scad is in same directory.  
+- Also, make sure keyChainTitle.scad is in the same directory.  
 - Then click on the keyChainNameTagCreator.bash file.  
 - If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
 ```bash
