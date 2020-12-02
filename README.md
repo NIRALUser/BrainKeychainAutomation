@@ -29,7 +29,7 @@
 - This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.
 - The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
-### 2.1) keyChainNameTagCreator.bash  
+### 2.1) keyChainNameTagCreator.bash (sceneCreator.py continued)  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
 - Also, make sure keyChainTitle.scad is in the same directory.  
 - Then click on the keyChainNameTagCreator.bash file.  
