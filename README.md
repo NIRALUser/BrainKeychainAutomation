@@ -29,7 +29,7 @@
 - This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.
 - The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
 
-### 3.) keyChainNameTagCreator.bash  
+### 2.1) keyChainNameTagCreator.bash  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
 - Also, make sure keyChainTitle.scad is in the same directory.  
 - Then click on the keyChainNameTagCreator.bash file.  
@@ -61,7 +61,7 @@ stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 
 * The script will take the substring '0207-1-1', 'T0247-1-1', '241033' and '110940' respectively.  
 
-### 4.) Printing
+### 3.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
 - Drag a print scene into the software and configure the printing setting to how you would like.
 - Click slice and let the software add support structures. Then you are ready to print!
