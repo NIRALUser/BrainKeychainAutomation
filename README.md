@@ -54,7 +54,7 @@ Or
 ```bash
 stx_noscale_241033_V06_t1w_RAI_mid_left.vtk
 ```
-or
+Or
 ```bash
 stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 ```
