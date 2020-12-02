@@ -59,7 +59,7 @@ or
 stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 ```
 
-* The script will take the substring '0207-1-1' in the first example and 'T0247-1-1' in the second.  
+* The script will take the substring '0207-1-1', 'T0247-1-1', '241033' and '110940' respectively.  
 
 ### 4.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
