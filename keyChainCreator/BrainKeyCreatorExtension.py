@@ -58,42 +58,20 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Layout within the dummy collapsible button
     parametersFormLayout = qt.QFormLayout(parametersCollapsibleButton)
 
-
     # Adds search directory text box
-    self.searchDir = qt.QLineEdit()
-    self.searchDir.placeholderText = "/Users/sample/search/directory/..."
-    parametersFormLayout.addRow("Search directory", self.searchDir)
-    '''
-    # Adds save input directory text box
-    self.saveDir = qt.QLineEdit()
-    self.saveDir.placeholderText = "/Users/sample/save/directory/.../"
-    parametersFormLayout.addRow("Save directory", self.saveDir)
-    '''
+    self.inputDirSelector = ctk.ctkPathLineEdit()
+    self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
+    self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
+    self.inputDirSelector.settingKey = 'inputDir'
+    parametersFormLayout.addRow("Input surface folder (required):", self.inputDirSelector)
 
-    '''
-    self.inputLeft = slicer.qMRMLNodeComboBox()
-    self.inputLeft.nodeTypes = ["vtkMRMLModelNode"]
-    self.inputLeft.selectNodeUponCreation = True
-    self.inputLeft.addEnabled = False
-    self.inputLeft.removeEnabled = False
-    self.inputLeft.noneEnabled = False
-    self.inputLeft.showHidden = False
-    self.inputLeft.showChildNodeTypes = True
-    self.inputLeft.setMRMLScene( slicer.mrmlScene )
-    self.inputLeft.setToolTip( "Pick the input left brain surface." )
-    self.inputRight = slicer.qMRMLNodeComboBox()
-    self.inputRight.nodeTypes = ["vtkMRMLModelNode"]
-    self.inputRight.selectNodeUponCreation = True
-    self.inputRight.addEnabled = False
-    self.inputRight.removeEnabled = False
-    self.inputRight.noneEnabled = False
-    self.inputRight.showHidden = False
-    self.inputRight.showChildNodeTypes = True
-    self.inputRight.setMRMLScene( slicer.mrmlScene )
-    self.inputRight.setToolTip( "Pick the input right brain surface." )
-    parametersFormLayout.addRow("Input Left Side: ", self.inputLeft)
-    parametersFormLayout.addRow("Input Right Side: ", self.inputRight)
-    '''
+    # Adds save directory text box
+    self.saveDirSelector = ctk.ctkPathLineEdit()
+    self.saveDirSelector.filters = ctk.ctkPathLineEdit.Dirs
+    self.saveDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
+    self.saveDirSelector.settingKey = 'saveDir'
+    parametersFormLayout.addRow("Output folder location (optional):", self.saveDirSelector)
+
 
     self.meshScaleFactor = slicer.qMRMLSliderWidget()
     self.meshScaleFactor.decimals = 4
@@ -135,14 +113,14 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     #
     self.applyButton = qt.QPushButton("Apply")
     self.applyButton.toolTip = "Run the brain key chain generator."
-    self.applyButton.enabled = False
+    self.applyButton.enabled = True
     parametersFormLayout.addRow(self.applyButton)
 
     # connections
     self.applyButton.connect('clicked(bool)', self.onApplyButton)
     #self.inputLeft.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
     #self.inputRight.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
-    self.searchDir.textChanged.connect(self.onSelect)
+    #self.searchDir.textChanged.connect(self.onSelect)
         #self.saveDir.textChanged.connect(self.onSelect)
     # self.outputSelector.connect("currentNodeChanged(vtkMRMLNode*)", self.onSelect)
 
@@ -150,19 +128,24 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.layout.addStretch(1)
 
     # Refresh Apply button state
-    self.onSelect()
+    #self.onSelect()
 
   def cleanup(self):
     pass
 
+    '''
   def onSelect(self):   
     #self.applyButton.enabled = self.inputLeft.currentNode() and self.inputRight.currentNode()
     self.applyButton.enabled = self.searchDir.isModified()
+    '''
 
   def onApplyButton(self):
     logic = BrainKeyCreatorExtensionLogic()
     enableScreenshotsFlag = self.enableScreenshotsFlagCheckBox.checked
-    self.saveDir = os.path.split(self.searchDir.text)[0] + '/Keychains/'
+    if(len(str(self.saveDirSelector.currentPath)) == 0):
+        self.saveDir = os.path.split(str(self.inputDirSelector.currentPath))[0] + '/Keychains/'
+    else:
+        self.saveDir = str(self.saveDirSelector.currentPath) + '/Keychains/'
     subprocess.call(['mkdir', self.saveDir])
     # leftVTKSearch will be used to place all VTK files that contain 'left'
     # rightVTKSearch will be used to place all VTK files that contain 'right'
@@ -171,7 +154,7 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     rightVTKSearch = []
     goodVTKPairs = []
     # Load directory with brain surfaces and place into left surface array or right surface array if it is a .vtk file
-    for filename in os.listdir(self.searchDir.text):
+    for filename in os.listdir(str(self.inputDirSelector.currentPath)):
         if filename[len(filename)-3:] == 'vtk':
             if('left' in filename):
                 leftVTKSearch.append(filename)
@@ -189,8 +172,8 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Go through all the found VTK pairs and run the logic on them (and eventually save)
     for entry in goodVTKPairs:
         # Load nodes into scence
-        leftInput = slicer.util.loadModel(self.searchDir.text + '/'+entry[0], returnNode=True)[1]
-        rightInput = slicer.util.loadModel(self.searchDir.text+ '/' + entry[1], returnNode=True)[1]
+        leftInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath) + '/'+entry[0], returnNode=True)[1]
+        rightInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath)+ '/' + entry[1], returnNode=True)[1]
         # Create keychain name that will be saved at the end of saveDir file path
         keyChainName = entry[0].replace('.vtk','').replace('left','')
         savedFilePath = str(self.saveDir+keyChainName)
