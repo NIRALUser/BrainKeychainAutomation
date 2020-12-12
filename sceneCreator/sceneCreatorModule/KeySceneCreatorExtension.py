@@ -69,14 +69,14 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.inputDirSelector.settingKey = 'inputDir'
-    parametersFormLayout.addRow("Input surface folder (required):", self.inputDirSelector)
+    parametersFormLayout.addRow("Location of 'Keychain' folder (required):", self.inputDirSelector)
 
     # Adds bash directory text box
     self.bashDirSelector = ctk.ctkPathLineEdit()
     self.bashDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.bashDirSelector.settingKey = 'bashDir'
-    parametersFormLayout.addRow("Input bash folder (required):", self.bashDirSelector)
+    parametersFormLayout.addRow("Location of 'keyChainNameTagCreator.bash' folder (required):", self.bashDirSelector)
 
 
     #
@@ -113,7 +113,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     """
     logging.info('Processing started')
 
-    def createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis):
+    def createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, inputDir):
         keychainBounds = []
         keychainZMax = 0
         zBoundCounter = 0
@@ -189,7 +189,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
         # Write print scene
         writer = vtk.vtkSTLWriter()
-        writer.SetFileName('./Scenes/keyChainScene' + str(sceneIterator) + '.stl')
+        writer.SetFileName(inputDir + '/Scenes/keyChainScene' + str(sceneIterator) + '.stl')
         writer.SetInputConnection(appendFilter.GetOutputPort())
         writer.Write()
         return True
@@ -209,8 +209,8 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
                 #brainDir = os.getcwd() + "/Keychains/"
                 #nametagDir = os.getcwd() + "/Nametags/"
         brainDir = inputDir + "/Keychains/"
-        nametagDir = inputDir + "/Nametags/"
-        subprocess.call(['mkdir', os.getcwd() + '/Scenes'])
+        nametagDir = bashDir + "/Nametags/"
+        subprocess.call(['mkdir', inputDir + '/Scenes'])
         # Match keychains and nametags (will be used later when rest of script is working)
         matchedBrainTags = {}
         brainScans = os.listdir(brainDir)
@@ -226,7 +226,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         finalMacthedKeys = list(matchedBrainTags.keys()) 
         while sceneIterator < sceneCount:
             i = 0 # Iterator for deleting already used keychains
-            createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis)
+            createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, inputDir)
             if(not(sceneIterator == sceneCount - 1)):
                 while(i < brainsPerScene):
                     del matchedBrainTags[finalMacthedKeys[i]]
