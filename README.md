@@ -4,7 +4,7 @@
 
 ## Prerequisites
 
-- Linux, Unix, or Unix like environment (includes not tested on windows).  
+- Linux, Unix, or Unix like environment (includes macOS, not tested on windows).  
 - Python installed on your machine. 
 
 ## How To
