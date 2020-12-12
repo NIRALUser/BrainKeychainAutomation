@@ -27,7 +27,11 @@ class BrainKeyCreatorExtension(ScriptedLoadableModule):
     self.parent.dependencies = []
     self.parent.contributors = ["Henry Pehr, Christian Nell, Martin Styner (UNC-Chapel Hill)"]
     self.parent.helpText = """
-This extension generates a small key chain surface (for 3D printing) from brain surface input. Tested on Slicer 4.10.2
+This extension generates a small key chain surface (for 3D printing) from brain surface input. Tested on Slicer 4.10.2, Python 2.7.13 and macOS.
+Required: An input folder that contains VTK surfaces (left and right hemispheres). Filenames for the left and right hemispheres must be identical outside of 
+'left' and 'right' in each respective filenames. Ex.) stx_neo-0232-2-1-6year_mid_left.vtk and stx_neo-0232-2-1-6year_mid_right.vtk
+Optional: An output folder location. This is where a folder called 'Keychains' will be places with all the finished keychains.
+If a location is not specified, the same location of the input folder will be used.
 """
     self.parent.helpText += self.getDefaultModuleDocumentationLink()
     self.parent.acknowledgementText = """
