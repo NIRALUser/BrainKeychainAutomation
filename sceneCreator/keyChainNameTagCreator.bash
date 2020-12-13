@@ -1,11 +1,14 @@
 #!/bin/bash
 OpenSCADDir=$1
 openSCAD_file=$2
-saveDir="Nametags"
+inputDir=$3
+saveName="/Nametags"
+saveDir="$inputDir$saveName"
 nameTagInputDir="Keychains"
 subStr=""
 declare -a doneTags
-mkdir $saveDir
+cd $inputDir
+mkdir "Nametags"
 cd $nameTagInputDir
 for FILE in *.stl; 
 	do (
@@ -23,7 +26,7 @@ for FILE in *.stl;
 			echo $subStr
 		elif [ "${FILE:0:4}" == "stx_" ]; then
 			pat="([^_]*)-([^-]*)"
-			subStr="${FILE:4:11}"
+			subStr="${FILE:4:9}"
 			echo $subStr
 		fi
 		cd ..
