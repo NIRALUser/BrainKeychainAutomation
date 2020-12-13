@@ -83,7 +83,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Apply Button
     #
     self.applyButton = qt.QPushButton("Apply")
-    self.applyButton.toolTip = "Run the brain key chain generator."
+    self.applyButton.toolTip = "Run the keychain scene generator."
     self.applyButton.enabled = True
     parametersFormLayout.addRow(self.applyButton)
 
