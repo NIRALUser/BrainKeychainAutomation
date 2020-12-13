@@ -68,15 +68,23 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.lengthInput.text = '150'
     parametersFormLayout.addRow("Input print surface length (in cm, required): ", self.lengthInput)
 
-    # Adds search directory text box
+    # Adds search directory finder
     self.inputDirSelector = ctk.ctkPathLineEdit()
     self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.inputDirSelector.settingKey = 'inputDir'
-    parametersFormLayout.addRow("Location of 'Keychain' folder (required):", self.inputDirSelector)
+    parametersFormLayout.addRow("Location of 'Keychains' folder (required):", self.inputDirSelector)
 
-    # Adds bash directory text box
+    # Adds output directory finder
+    self.outputDirSelector = ctk.ctkPathLineEdit()
+    self.outputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
+    self.outputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
+    self.outputDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.outputDirSelector.settingKey = 'outputDir'
+    parametersFormLayout.addRow("Output 'Scene' folder location (optional, blank will output in same folder as 'Keychains'):", self.outputDirSelector)
+
+    # Adds bash directory finder
     self.bashDirSelector = ctk.ctkPathLineEdit()
     self.bashDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
@@ -84,19 +92,28 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.bashDirSelector.settingKey = 'bashDir'
     parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the same folder as 'Keychain'):", self.bashDirSelector)
 
-    # Adds openSCAD file text box
+    # Adds openSCAD file finder
     self.openSCADFileSelector = ctk.ctkPathLineEdit()
     self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
     self.openSCADFileSelector.settingKey = 'openSCADDir'
     parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the same folder as 'Keychain'):", self.openSCADFileSelector)
 
-    # Adds openSCAD directory text box
+    # Adds openSCAD directory finder
     self.openSCADDirSelector = ctk.ctkPathLineEdit()
     self.openSCADDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.openSCADDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.openSCADDirSelector.currentPath = '/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
     self.openSCADDirSelector.settingKey = 'openSCADDir'
     parametersFormLayout.addRow("Location of 'OpenSCAD.app' file (required if OpenSCAD isn't located here):", self.openSCADDirSelector)
+
+
+    #
+    # check box to check if user wants to keep keychain and nametag folders
+    #
+    self.keepKeychainNametag = qt.QCheckBox()
+    self.keepKeychainNametag.checked = True
+    self.keepKeychainNametag.setToolTip("If checked, keeps the Keychain and Nametag folder. If not, deletes them after the scenes are created.")
+    parametersFormLayout.addRow("Keep 'Keychains' and 'Nametags' folders: " , self.keepKeychainNametag)
 
 
     #
@@ -114,8 +131,9 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
   def onApplyButton(self):
     logic = KeySceneCreatorExtensionLogic()
     logic.run(self.widthInput.text, self.lengthInput.text, self.inputDirSelector.currentPath,
-        self.bashDirSelector.currentPath, self.openSCADFileSelector.currentPath, 
-        self.openSCADDirSelector.currentPath)
+        self.outputDirSelector.currentPath, self.bashDirSelector.currentPath, 
+        self.openSCADFileSelector.currentPath, self.openSCADDirSelector.currentPath, 
+        self.keepKeychainNametag.checked)
 
 
 #
@@ -128,13 +146,13 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
   https://github.com/Slicer/Slicer/blob/master/Base/Python/slicer/ScriptedLoadableModule.py
   """
 
-  def run(self, width, length, inputDir, bashDir, openSCADFile, openSCADDir):
+  def run(self, width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir, keepKeyName):
     """
     Run the actual algorithm
     """
     logging.info('Processing started')
 
-    def createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, inputDir):
+    def createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, outputDir):
         keychainBounds = []
         keychainZMax = 0
         zBoundCounter = 0
@@ -163,7 +181,6 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         while appendingCounter < brainsPerScene:
             # Append key chain
             reader = vtk.vtkSTLReader()  # Read keychain
-            print(matchedBrainTags[macthedKeys[appendingCounter]])
             reader.SetFileName(matchedBrainTags[macthedKeys[appendingCounter]])
 
             # Use mapper to get keychain bounds to correctly place in scene
@@ -185,7 +202,6 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
             # Append name tag
             reader = vtk.vtkSTLReader() # Read nametag
-            print(macthedKeys[appendingCounter])
             reader.SetFileName(macthedKeys[appendingCounter])
 
             trans = vtk.vtkTransform()  # Set transltion
@@ -210,13 +226,12 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
         # Write print scene
         writer = vtk.vtkSTLWriter()
-        writer.SetFileName(inputDir + '/Scenes/keyChainScene' + str(sceneIterator) + '.stl')
+        writer.SetFileName(outputDir + '/Scenes/keyChainScene' + str(sceneIterator) + '.stl')
         writer.SetInputConnection(appendFilter.GetOutputPort())
         writer.Write()
         return True
 
-    def sceneSetup(width, length, inputDir, bashDir, openSCADFile, openSCADDir):
-        print(inputDir, bashDir, openSCADFile)
+    def sceneSetup(width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
         inputWidth = width
         inputLength = length
         brainsPerXAxis = math.floor(inputWidth / 50)
@@ -226,7 +241,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         # Gets user input for input directories
         brainDir = inputDir + "/Keychains/"
         nametagDir = bashDir + "/Nametags/"
-        subprocess.call(['mkdir', inputDir + '/Scenes'])
+        subprocess.call(['mkdir', outputDir + '/Scenes'])
         # Match keychains and nametags (will be used later when rest of script is working)
         matchedBrainTags = {}
         brainScans = os.listdir(brainDir)
@@ -242,7 +257,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         finalMacthedKeys = list(matchedBrainTags.keys()) 
         while sceneIterator < sceneCount:
             i = 0 # Iterator for deleting already used keychains
-            createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, inputDir)
+            createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, outputDir)
             if(not(sceneIterator == sceneCount - 1)):
                 while(i < brainsPerScene):
                     del matchedBrainTags[finalMacthedKeys[i]]
@@ -274,4 +289,10 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         bashDir = inputDir
     if (len(str(openSCADFile)) == 0):
         openSCADFile = inputDir + '/keyChainTitle.scad'
-    sceneSetup(width, length, inputDir, bashDir, openSCADFile, openSCADDir)
+    if (len(str(outputDir)) == 0):
+        outputDir = inputDir
+    sceneSetup(width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir)
+    if (not(keepKeyName)):
+        subprocess.call(['rm', '-r', 'Keychains'], cwd=inputDir)
+        subprocess.call(['rm', '-r', 'Nametags'], cwd=inputDir)
+
