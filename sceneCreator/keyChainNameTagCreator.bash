@@ -1,6 +1,7 @@
 #!/bin/bash
+OpenSCADDir=$1
+openSCAD_file=$2
 saveDir="Nametags"
-openSCAD_file="keyChainTitle.scad"
 nameTagInputDir="Keychains"
 subStr=""
 declare -a doneTags
@@ -22,11 +23,10 @@ for FILE in *.stl;
 			echo $subStr
 		elif [ "${FILE:0:4}" == "stx_" ]; then
 			pat="([^_]*)-([^-]*)"
-			[[ $FILE =~ $pat ]]	
-			subStr="${BASH_REMATCH[1]}"
+			subStr="${FILE:4:11}"
 			echo $subStr
 		fi
 		cd ..
-		/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD -o "${saveDir}/${subStr}.stl" $openSCAD_file -D "input=\"$subStr\"" -D "length=12"
+		$OpenSCADDir -o "${saveDir}/${subStr}.stl" $openSCAD_file -D "input=\"$subStr\"" -D "length=12"
 		cd $nameTagInputDir
 	);done
