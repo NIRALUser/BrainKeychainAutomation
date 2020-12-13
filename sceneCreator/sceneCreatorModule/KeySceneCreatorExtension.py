@@ -237,10 +237,10 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         brainsPerXAxis = math.floor(inputWidth / 50)
         brainsPerYAxis = math.floor(inputLength / 70)
         brainsPerScene = brainsPerXAxis * brainsPerYAxis
-        subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile], cwd=bashDir)
+        subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile, inputDir], cwd=bashDir)
         # Gets user input for input directories
         brainDir = inputDir + "/Keychains/"
-        nametagDir = bashDir + "/Nametags/"
+        nametagDir = inputDir + "/Nametags/"
         subprocess.call(['mkdir', outputDir + '/Scenes'])
         # Match keychains and nametags (will be used later when rest of script is working)
         matchedBrainTags = {}
