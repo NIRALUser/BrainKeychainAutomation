@@ -23,7 +23,9 @@ class KeySceneCreatorExtension(ScriptedLoadableModule):
     self.parent.dependencies = []
     self.parent.contributors = ["Christian Nell, Martin Styner (UNC-Chapel Hill)"]
     self.parent.helpText = """
-This extension generates a print scene with keychains.
+This extension generates adaptive print scenes for keychains and their matching nametags. This script assumes 
+each keychain is no larger than 50 mm in width and 50 mm in length. Each keychain and nametag are allocated 50 mm in width 
+and 70 mm in length for spacing. All input fields below are required.
 """
     self.parent.helpText += self.getDefaultModuleDocumentationLink()
     self.parent.acknowledgementText = """
@@ -80,7 +82,13 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.bashDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.bashDirSelector.settingKey = 'bashDir'
-    parametersFormLayout.addRow("Location of 'keyChainNameTagCreator.bash' folder (required):", self.bashDirSelector)
+    parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the same folder as 'Keychain'):", self.bashDirSelector)
+
+    # Adds openSCAD file text box
+    self.openSCADFileSelector = ctk.ctkPathLineEdit()
+    self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
+    self.openSCADFileSelector.settingKey = 'openSCADDir'
+    parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the same folder as 'Keychain'):", self.openSCADFileSelector)
 
     # Adds openSCAD directory text box
     self.openSCADDirSelector = ctk.ctkPathLineEdit()
@@ -89,14 +97,6 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.openSCADDirSelector.currentPath = '/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
     self.openSCADDirSelector.settingKey = 'openSCADDir'
     parametersFormLayout.addRow("Location of 'OpenSCAD.app' file (required if OpenSCAD isn't located here):", self.openSCADDirSelector)
-
-    # Adds openSCAD file text box
-    self.openSCADFileSelector = ctk.ctkPathLineEdit()
-    self.openSCADFileSelector.filters = ctk.ctkPathLineEdit.Dirs
-    self.openSCADFileSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
-    self.openSCADFileSelector.settingKey = 'openSCADDir'
-    parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (required):", self.openSCADFileSelector)
 
 
     #
@@ -114,8 +114,8 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
   def onApplyButton(self):
     logic = KeySceneCreatorExtensionLogic()
     logic.run(self.widthInput.text, self.lengthInput.text, self.inputDirSelector.currentPath,
-        self.bashDirSelector.currentPath, self.openSCADDirSelector.currentPath,
-        self.openSCADFileSelector.currentPath)
+        self.bashDirSelector.currentPath, self.openSCADFileSelector.currentPath, 
+        self.openSCADDirSelector.currentPath)
 
 
 #
@@ -128,7 +128,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
   https://github.com/Slicer/Slicer/blob/master/Base/Python/slicer/ScriptedLoadableModule.py
   """
 
-  def run(self, width, length, inputDir, bashDir, openSCADDir, openSCADFile):
+  def run(self, width, length, inputDir, bashDir, openSCADFile, openSCADDir):
     """
     Run the actual algorithm
     """
@@ -215,9 +215,8 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         writer.Write()
         return True
 
-    def sceneSetup(width, length, inputDir, bashDir, openSCADDir, openSCADFile):
-        print('This script assumes each keychain is no larger than 50 mm in width and 50 mm in length.')
-        print('Each keychain and nametag are allocated 50 mm in width and 70 mm in length for spacing.')
+    def sceneSetup(width, length, inputDir, bashDir, openSCADFile, openSCADDir):
+        print(inputDir, bashDir, openSCADFile)
         inputWidth = width
         inputLength = length
         brainsPerXAxis = math.floor(inputWidth / 50)
@@ -271,4 +270,8 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
     width = int(width)
     length = int(length)
-    sceneSetup(width, length, inputDir, bashDir, openSCADDir, openSCADFile)
+    if (len(str(bashDir)) == 0):
+        bashDir = inputDir
+    if (len(str(openSCADFile)) == 0):
+        openSCADFile = inputDir + '/keyChainTitle.scad'
+    sceneSetup(width, length, inputDir, bashDir, openSCADFile, openSCADDir)
