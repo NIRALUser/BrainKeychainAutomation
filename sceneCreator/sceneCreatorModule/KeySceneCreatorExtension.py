@@ -234,8 +234,8 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     def sceneSetup(width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
         inputWidth = width
         inputLength = length
-        brainsPerXAxis = math.floor(inputWidth / 50)
-        brainsPerYAxis = math.floor(inputLength / 70)
+        brainsPerXAxis = int(math.floor(inputWidth / 50))
+        brainsPerYAxis = int(math.floor(inputLength / 70))
         brainsPerScene = brainsPerXAxis * brainsPerYAxis
         subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile, inputDir], cwd=bashDir)
         # Gets user input for input directories
@@ -252,7 +252,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
                     matchedBrainTags[nametagDir + filename] = brainDir + brain
 
         totalBrainLength = len(matchedBrainTags)
-        sceneCount = math.ceil(totalBrainLength / brainsPerScene)  # Finds number of scenes that will be printed
+        sceneCount = math.ceil(float(totalBrainLength) / brainsPerScene)  # Finds number of scenes that will be printed
         sceneIterator = 0
         finalMacthedKeys = list(matchedBrainTags.keys()) 
         while sceneIterator < sceneCount:
