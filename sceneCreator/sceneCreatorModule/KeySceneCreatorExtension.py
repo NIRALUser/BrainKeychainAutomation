@@ -169,11 +169,16 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
             mapper.Update()
             bounds = mapper.GetBounds()
             keychainBounds.append(bounds)
-            if(bounds[4] > keychainZMax):
-                keychainZMax = bounds[4]
-            if(zBoundCounter == len(matchedBrainTags) - 1):
-                zBoundCounter = brainsPerScene
-            zBoundCounter += 1
+            if ((bounds[1] - bounds[0] >= 50) or (bounds[3] - bounds[2] >= 50)):
+                macthedKeys.pop(zBoundCounter)
+                logging.info('The following keychain was too big!')
+                logging.info(matchedBrainTags[macthedKeys[zBoundCounter]])
+            else:
+                if(bounds[4] > keychainZMax):
+                    keychainZMax = bounds[4]
+                if(zBoundCounter == len(matchedBrainTags) - 1):
+                    zBoundCounter = brainsPerScene
+                zBoundCounter += 1
 
         appendFilter = vtk.vtkAppendPolyData()
 
