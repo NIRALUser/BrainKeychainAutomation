@@ -24,8 +24,8 @@ class KeySceneCreatorExtension(ScriptedLoadableModule):
     self.parent.contributors = ["Christian Nell, Martin Styner (UNC-Chapel Hill)"]
     self.parent.helpText = """
 This extension generates adaptive print scenes for keychains and their matching nametags. This script assumes 
-each keychain is LESS THAN 50 cm in width and 50 cm in length (not less than or equal to). Each keychain and 
-nametag are allocated 50 cm in width and 70 cm in length for spacing. All input fields below are required.
+each keychain is LESS THAN 50 mm in width and 50 mm in length (not less than or equal to). Each keychain and 
+nametag are allocated 50 mm in width and 70 mm in length for spacing. All input fields below are required.
 """
     self.parent.helpText += self.getDefaultModuleDocumentationLink()
     self.parent.acknowledgementText = """
@@ -60,13 +60,13 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Adds width text box
     self.widthInput = qt.QLineEdit()
     self.widthInput.text = '160'
-    parametersFormLayout.addRow("Input print surface width (in cm, required): ", self.widthInput)
+    parametersFormLayout.addRow("Input print surface width (in mm, required): ", self.widthInput)
 
 
     # Adds length text box
     self.lengthInput = qt.QLineEdit()
     self.lengthInput.text = '150'
-    parametersFormLayout.addRow("Input print surface length (in cm, required): ", self.lengthInput)
+    parametersFormLayout.addRow("Input print surface length (in mm, required): ", self.lengthInput)
 
     # Adds search directory finder
     self.inputDirSelector = ctk.ctkPathLineEdit()
