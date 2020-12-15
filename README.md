@@ -9,9 +9,9 @@
 
 ## How To
 
-### 1.) keyChainCreator 
+## 1.) keyChainCreator 
 
-## BrainKeyCreatorExtension.py  
+### BrainKeyCreatorExtension.py  
 - Download [3D Slicer](https://download.slicer.org/ "3D Slicer").  
 - Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
 - Click 'Install Extensions', then click the search bar in the top right corner.  
@@ -24,9 +24,9 @@
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
 - After it has finished running you should have a directory called 'Keychains' in the same directory as your input directory.  
 
-### 2.) sceneCreator  
+## 2.) sceneCreator  
 
-## sceneCreatorModule (sceneCreator.py)
+### sceneCreatorModule (sceneCreator.py)
 - Download and make sure the file is in the same directory as Keychains. 
 - Run sceneCreator.py in a terminal.  
 - Specify a print surface width and length. Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
@@ -65,9 +65,9 @@ stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 
 * The script will take the substring '0207-1-1', 'T0247-1-1', '241033' and '110940' respectively.  
 
-## keyChainTitle.scad
+### keyChainTitle.scad
 
-### 3.) Printing
+## 3.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
 - Drag a print scene into the software and configure the printing setting to how you would like.
 - Click slice and let the software add support structures. Then you are ready to print!
