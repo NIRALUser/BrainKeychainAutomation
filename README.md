@@ -4,8 +4,8 @@
 
 ## Prerequisites
 
-- Linux, Unix, or Unix like environment (includes macOS, not tested on windows).  
-- Python installed on your machine. 
+- Unix, or Unix like environment (includes macOS, not tested on windows).  
+- 3D Slicer and openSCAD
 
 ## How To
 
