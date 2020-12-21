@@ -427,8 +427,7 @@ class BrainKeyCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     keychain_dilated = dilateFilter.Execute(keychain)
 
     holesFilter = sitk.BinaryFillholeImageFilter()
-    # keychain_dilated_fixed = holesFilter.Execute(keychain_dilated, True, 255)
-    keychain_dilated_fixed = holesFilter.Execute(keychain_dilated)
+    keychain_dilated_fixed = holesFilter.Execute(keychain_dilated, True, 255)
 
     
     keychainNode = slicer.mrmlScene.AddNewNodeByClass('vtkMRMLLabelMapVolumeNode', "keyChainLabel")
