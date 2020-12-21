@@ -176,8 +176,8 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Go through all the found VTK pairs and run the logic on them (and eventually save)
     for entry in goodVTKPairs:
         # Load nodes into scence
-        leftInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath) + '/'+entry[0])[1]
-        rightInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath)+ '/' + entry[1])[1]
+        leftInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath) + '/'+entry[0], returnNode=True)[1]
+        rightInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath)+ '/' + entry[1], returnNode=True)[1]
         # Create keychain name that will be saved at the end of saveDir file path
         keyChainName = entry[0].replace('.vtk','').replace('left','')
         savedFilePath = str(self.saveDir+keyChainName)
