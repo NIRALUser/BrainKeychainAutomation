@@ -29,11 +29,16 @@ Tested on 3D Slicer 4.10.2
 ## 2.) sceneCreator  
 
 ### sceneCreatorModule (sceneCreator.py)
-- Download and make sure the file is in the same directory as Keychains. 
-- Run sceneCreator.py in a terminal.  
+- Download the sceneCreator folder if you haven't already.
+- Add sceneCreatorModule the same way you added BrainKeyCreatorExtension.  
 - Specify a print surface width and length. Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
-- This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.
-- The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.
+- This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.  
+- Give the location of the input/ouput folders. The input folder in the location of the 'Keychains' folder. Just like the last script, if you don't give an output location it will automatically put it where the input (Keychains) folder is.  
+- Give the location of the bash file and openSCAD file (keyChainNameTagCreator.bash and keyChainTitle.scad) in the format of the example input.
+- Make sure that the binary openSCAD application is located in the same folder as the one given. If it is not, it must be changed to where it is located in order to work.  
+- Lastly, keep the 'Keep Keychains and Nametags folders' keybox checked if you would like to keep seperate folders containing all the keychains and nametags. If you don't have a lot of storage on your machine, it is recommended you do not keep this checked.
+- The script will create keychain/nametag scenes. They will be named 'keyChainScene' + 'some-iteration-number' in a directory called Scenes.  
+
 
 ### keyChainNameTagCreator.bash (sceneCreator.py continued)  
 - Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
