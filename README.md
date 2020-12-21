@@ -1,6 +1,7 @@
 # Brain Keychain Automation
 
-[Tutorial (ppt)](https://docs.google.com/presentation/d/1Bq0jW6ZUMaFMooyvN8xE0ZmX54jMMEjBkEPmdlKC7bg/edit#slide=id.gae891ae01e_0_3 "Tutorial (ppt)")
+[Tutorial (ppt)](https://docs.google.com/presentation/d/1Bq0jW6ZUMaFMooyvN8xE0ZmX54jMMEjBkEPmdlKC7bg/edit#slide=id.gae891ae01e_0_3 "Tutorial (ppt)")  
+Tested on 3D Slicer 4.10.2
 
 ## Prerequisites
 
