@@ -41,8 +41,7 @@ Tested on 3D Slicer 4.10.2
 
 
 ### keyChainNameTagCreator.bash (sceneCreator.py continued)  
-- Download keyChainTitle.scad and keyChainNameTagCreator.bash and make sure it is in the same directory as the input surfaces.   
-- Also, make sure keyChainTitle.scad is in the same directory.  
+- Download keyChainTitle.scad and keyChainNameTagCreator.bash.     
 - Then click on the keyChainNameTagCreator.bash file.  
 - If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
 ```bash
