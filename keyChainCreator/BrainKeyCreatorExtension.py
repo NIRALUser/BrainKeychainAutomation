@@ -176,8 +176,8 @@ class BrainKeyCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     # Go through all the found VTK pairs and run the logic on them (and eventually save)
     for entry in goodVTKPairs:
         # Load nodes into scence
-        leftInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath) + '/'+entry[0], returnNode=True)[1]
-        rightInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath)+ '/' + entry[1], returnNode=True)[1]
+        leftInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath) + '/'+entry[0])[1]
+        rightInput = slicer.util.loadModel(str(self.inputDirSelector.currentPath)+ '/' + entry[1])[1]
         # Create keychain name that will be saved at the end of saveDir file path
         keyChainName = entry[0].replace('.vtk','').replace('left','')
         savedFilePath = str(self.saveDir+keyChainName)
@@ -427,7 +427,8 @@ class BrainKeyCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     keychain_dilated = dilateFilter.Execute(keychain)
 
     holesFilter = sitk.BinaryFillholeImageFilter()
-    keychain_dilated_fixed = holesFilter.Execute(keychain_dilated, True, 255)
+    # keychain_dilated_fixed = holesFilter.Execute(keychain_dilated, True, 255)
+    keychain_dilated_fixed = holesFilter.Execute(keychain_dilated)
 
     
     keychainNode = slicer.mrmlScene.AddNewNodeByClass('vtkMRMLLabelMapVolumeNode', "keyChainLabel")
