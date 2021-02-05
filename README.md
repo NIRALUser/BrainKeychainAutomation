@@ -21,7 +21,8 @@ Tested on 3D Slicer 4.10.2
 - Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional modules' section. 
 - Close and then open, or restart 3D Slicer so that the module will load into your extension list.
 - To find the module, click on the search bar to the right of 'modules' on the home screen of 3D Slicer and search BrainKeyCreatorExtension.
-- You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder).  
+- You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder). 
+- The input folder of brain hemispheres should not be named Keychains, otherwise the keychains made by the script will be placed into the input folder.
 - You will also be given the opportunity to specify and output location. If you do not, it will be placed in the same location as the input folder.
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
 - After it has finished running you should have a directory called 'Keychains' in the output folder you specified, or the same as your input directory if you didn't write an output location.   
