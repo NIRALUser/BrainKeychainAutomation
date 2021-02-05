@@ -28,6 +28,11 @@ for FILE in *.stl;
 			pat="([^_]*)-([^-]*)"
 			subStr="${FILE:4:9}"
 			echo $subStr
+                else
+                        pat="(^[^_]+)"
+                        [[ $FILE =~ $pat ]]
+                        subStr="${BASH_REMATCH[1]}"
+                        echo $subStr
 		fi
 		cd ..
 		$OpenSCADDir -o "${saveDir}/${subStr}.stl" $openSCAD_file -D "input=\"$subStr\"" -D "length=12"
