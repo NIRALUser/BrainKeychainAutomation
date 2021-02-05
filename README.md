@@ -53,7 +53,7 @@ chmod 755 keyChainNameTagCreator.bash
 
 **Note**  
 
-* The bash script takes a substring of the input surface name. It uses two regular expressions and two string matching statements to get the id.  
+* The bash script takes a substring of the input surface name. It uses two regular expressions and three string matching statements to get the id.  
 * As of now this is hard coded and the string lengths and patterns must follow the following conventions.  
 * If you do not want to rename all your files to these conventions, there is one additional match that it will take. 
 * The pattern can be any string you like, since this is the default pattern match. (Be aware that if your string is more than 9-10 characters the letters will run off of the nametag because it is too long).
@@ -78,11 +78,11 @@ Or the default string match (what you choose to name it)
 123-456
 ```
 
-* The script will take the substring '0207-1-1', 'T0247-1-1', '241033', '110940' and '123-456' respectively.  
-* First pattern matches the prefix stx_neo- and then finds the string between that and the third - (after stx_neo-).
+* The script will take the substring '0207-1-1', 'T0247-1-1', '241033', '110940' and '123-456' respectively for these examples.  
+* First pattern matches the prefix stx_neo and then finds the string between that and the third - (after stx_neo-).
 * Second pattern checks if the prefix equals stx_ then takes the next 9 characters in the string.
-* Third pattern tests if the string prefix equals stx_noscale then takes the next 6 characters in the string.
-* Fourth pattern checks if the string prefix equals stx_stx_noscale and then takes the next 6 characters in the string.
+* Third pattern tests if the string prefix equals stx_noscale then takes the next 6 characters in the string (not including the _ after stx_noscale).
+* Fourth pattern checks if the string prefix equals stx_stx_noscale and then takes the next 6 characters in the string (not including the _ after stx_stx_noscale).
 * Final (default) pattern takes all characters from the string input filename.
 
 ### keyChainTitle.scad
