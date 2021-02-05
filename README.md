@@ -79,6 +79,11 @@ Or the default string match (what you choose to name it)
 ```
 
 * The script will take the substring '0207-1-1', 'T0247-1-1', '241033', '110940' and '123-456' respectively.  
+* First pattern matches the prefix stx_neo- and then finds the string between that and the third - (after stx_neo-).
+* Second pattern checks if the prefix equals stx_ then takes the next 9 characters in the string.
+* Third pattern tests if the string prefix equals stx_noscale then takes the next 6 characters in the string.
+* Fourth pattern checks if the string prefix equals stx_stx_noscale and then takes the next 6 characters in the string.
+* Final (default) pattern takes all characters from the string input filename.
 
 ### keyChainTitle.scad
 
