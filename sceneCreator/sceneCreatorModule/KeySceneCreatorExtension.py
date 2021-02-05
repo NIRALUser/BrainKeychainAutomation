@@ -108,7 +108,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
 
     #
-    # check box to check if user wants to keep keychain and nametag folders
+    # Check box to check if user wants to keep keychain and nametag folders
     #
     self.keepKeychainNametag = qt.QCheckBox()
     self.keepKeychainNametag.checked = True
@@ -253,8 +253,9 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         # Matches the two if the brain filename contains the tag filename
         for filename in os.listdir(nametagDir):
             for brain in brainScans:
-                if(filename[:len(filename)-4] in brain):
-                    matchedBrainTags[nametagDir + filename] = brainDir + brain
+                if brain[len(brain)-3:] == 'stl':
+                    if(filename[:len(filename)-4] in brain):
+                        matchedBrainTags[nametagDir + filename] = brainDir + brain
 
         totalBrainLength = len(matchedBrainTags)
         sceneCount = math.ceil(float(totalBrainLength) / brainsPerScene)  # Finds number of scenes that will be printed
