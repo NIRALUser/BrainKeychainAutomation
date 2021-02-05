@@ -75,7 +75,7 @@ stx_stx_noscale_110940_V24_t1w_mid_surface_rsl_left_327680_native_NRRDSpace.vtk
 ```
 Or the default string match (what you choose to name it)
 ```bash
-123-456
+123-456.vtk
 ```
 
 * The script will take the substring '0207-1-1', 'T0247-1-1', '241033', '110940' and '123-456' respectively for these examples.  
