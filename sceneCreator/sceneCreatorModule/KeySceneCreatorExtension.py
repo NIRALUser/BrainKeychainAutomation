@@ -68,11 +68,16 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.lengthInput.text = '150'
     parametersFormLayout.addRow("Input print surface length (in mm, required): ", self.lengthInput)
 
+    # Adds max keychains per scene text box
+    self.maxKeychainInput = qt.QLineEdit()
+    self.maxKeychainInput.text = '6'
+    parametersFormLayout.addRow("Input maximum number of keychains per scene (optional, blank fills scene completely): ", self.maxKeychainInput)
+
     # Adds search directory finder
     self.inputDirSelector = ctk.ctkPathLineEdit()
     self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/'
     self.inputDirSelector.settingKey = 'inputDir'
     parametersFormLayout.addRow("Location of 'Keychains' folder (required):", self.inputDirSelector)
 
@@ -80,7 +85,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.outputDirSelector = ctk.ctkPathLineEdit()
     self.outputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.outputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.outputDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.outputDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.outputDirSelector.settingKey = 'outputDir'
     parametersFormLayout.addRow("Output 'Scene' folder location (optional, blank will output in same folder as 'Keychains'):", self.outputDirSelector)
 
@@ -88,13 +93,13 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.bashDirSelector = ctk.ctkPathLineEdit()
     self.bashDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.bashDirSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.bashDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.bashDirSelector.settingKey = 'bashDir'
     parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the same folder as 'Keychain'):", self.bashDirSelector)
 
     # Adds openSCAD file finder
     self.openSCADFileSelector = ctk.ctkPathLineEdit()
-    self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/research/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
+    self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
     self.openSCADFileSelector.settingKey = 'openSCADDir'
     parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the same folder as 'Keychain'):", self.openSCADFileSelector)
 
@@ -130,10 +135,10 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
   def onApplyButton(self):
     logic = KeySceneCreatorExtensionLogic()
-    logic.run(self.widthInput.text, self.lengthInput.text, self.inputDirSelector.currentPath,
-        self.outputDirSelector.currentPath, self.bashDirSelector.currentPath, 
-        self.openSCADFileSelector.currentPath, self.openSCADDirSelector.currentPath, 
-        self.keepKeychainNametag.checked)
+    logic.run(self.widthInput.text, self.lengthInput.text, self.maxKeychainInput.text, 
+        self.inputDirSelector.currentPath, self.outputDirSelector.currentPath, 
+        self.bashDirSelector.currentPath, self.openSCADFileSelector.currentPath, 
+        self.openSCADDirSelector.currentPath, self.keepKeychainNametag.checked)
 
 
 #
@@ -146,7 +151,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
   https://github.com/Slicer/Slicer/blob/master/Base/Python/slicer/ScriptedLoadableModule.py
   """
 
-  def run(self, width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir, keepKeyName):
+  def run(self, width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir, keepKeyName):
     """
     Run the actual algorithm
     """
@@ -236,12 +241,17 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         writer.Write()
         return True
 
-    def sceneSetup(width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
+    def sceneSetup(width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
         inputWidth = width
         inputLength = length
         brainsPerXAxis = int(math.floor(inputWidth / 50))
         brainsPerYAxis = int(math.floor(inputLength / 70))
         brainsPerScene = brainsPerXAxis * brainsPerYAxis
+
+        if(len(str(maxKeychainInput)) != 0):
+            if((maxKeychainInput < brainsPerScene) and (maxKeychainInput > 0)):
+                brainsPerScene = maxKeychainInput
+
         subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile, inputDir], cwd=bashDir)
         # Gets user input for input directories
         brainDir = inputDir + "/Keychains/"
@@ -291,13 +301,14 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
     width = int(width)
     length = int(length)
+    maxKeychainInput = int(maxKeychainInput)
     if (len(str(bashDir)) == 0):
         bashDir = inputDir
     if (len(str(openSCADFile)) == 0):
         openSCADFile = inputDir + '/keyChainTitle.scad'
     if (len(str(outputDir)) == 0):
         outputDir = inputDir
-    sceneSetup(width, length, inputDir, outputDir, bashDir, openSCADFile, openSCADDir)
+    sceneSetup(width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir)
     if (not(keepKeyName)):
         subprocess.call(['rm', '-r', 'Keychains'], cwd=inputDir)
         subprocess.call(['rm', '-r', 'Nametags'], cwd=inputDir)
