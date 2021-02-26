@@ -44,6 +44,14 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
   def setup(self):
     ScriptedLoadableModuleWidget.setup(self)
 
+    isMaxDisplayLoaded = False
+
+    def newText(text):
+        if(isMaxDisplayLoaded):
+            width = int(str(self.widthInput.text))
+            length = int(str(self.lengthInput.text))
+            self.displayMax.text = str((int(math.floor(width / 50)) * int(math.floor(length / 70))))
+
     # Instantiate and connect widgets ...
 
     #
@@ -59,12 +67,14 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
     # Adds width text box
     self.widthInput = qt.QLineEdit()
+    self.widthInput.textChanged.connect(newText)
     self.widthInput.text = '160'
     parametersFormLayout.addRow("Input print surface width (in mm, required): ", self.widthInput)
 
 
     # Adds length text box
     self.lengthInput = qt.QLineEdit()
+    self.lengthInput.textChanged.connect(newText)
     self.lengthInput.text = '150'
     parametersFormLayout.addRow("Input print surface length (in mm, required): ", self.lengthInput)
 
@@ -72,6 +82,12 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.maxKeychainInput = qt.QLineEdit()
     self.maxKeychainInput.text = '6'
     parametersFormLayout.addRow("Input maximum number of keychains per scene (optional, blank fills scene completely): ", self.maxKeychainInput)
+
+    # Adds length text box
+    self.displayMax = qt.QLabel()
+    self.displayMax.text = str((int(math.floor(int(str(self.widthInput.text)) / 50)) * int(math.floor(int(str(self.widthInput.text)) / 70))))
+    parametersFormLayout.addRow("Maximum number of keychains per scene based on input width and length: ", self.displayMax)
+    isMaxDisplayLoaded = True
 
     # Adds search directory finder
     self.inputDirSelector = ctk.ctkPathLineEdit()
@@ -312,4 +328,4 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     if (not(keepKeyName)):
         subprocess.call(['rm', '-r', 'Keychains'], cwd=inputDir)
         subprocess.call(['rm', '-r', 'Nametags'], cwd=inputDir)
-
+        
