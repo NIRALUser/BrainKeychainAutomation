@@ -6,7 +6,7 @@ Tested on 3D Slicer 4.10.2
 ## Prerequisites
 
 - MacOS  
-- [3D Slicer (version 4.10.2)[(https://slicer.kitware.com/midas3/folder/274 "Download location") and openSCAD
+- [3D Slicer (version 4.10.2)](https://slicer.kitware.com/midas3/folder/274 "Download location") and openSCAD
 
 ## How To
 
