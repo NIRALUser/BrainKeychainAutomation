@@ -5,8 +5,8 @@ Tested on 3D Slicer 4.10.2
 
 ## Prerequisites
 
-- Unix, or Unix like environment (includes macOS, not tested on windows).  
-- 3D Slicer and openSCAD
+- MacOS  
+- 3D Slicer (version 4.10.2) and openSCAD
 
 ## How To
 
