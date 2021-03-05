@@ -6,14 +6,13 @@ Tested on 3D Slicer 4.10.2
 ## Prerequisites
 
 - MacOS  
-- 3D Slicer (version 4.10.2) and openSCAD
+- [3D Slicer (version 4.10.2)[(https://slicer.kitware.com/midas3/folder/274 "Download location") and openSCAD
 
 ## How To
 
 ## 1.) keyChainCreator 
 
 ### BrainKeyCreatorExtension.py  
-- Download [3D Slicer](https://download.slicer.org/ "3D Slicer").  
 - Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
 - Click 'Install Extensions', then click the search bar in the top right corner.  
 - Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
