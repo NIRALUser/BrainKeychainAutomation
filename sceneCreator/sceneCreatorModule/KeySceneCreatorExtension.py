@@ -93,7 +93,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.inputDirSelector = ctk.ctkPathLineEdit()
     self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/'
+    self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/Keychains'
     self.inputDirSelector.settingKey = 'inputDir'
     parametersFormLayout.addRow("Location of 'Keychains' folder (required):", self.inputDirSelector)
 
@@ -103,7 +103,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.outputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.outputDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.outputDirSelector.settingKey = 'outputDir'
-    parametersFormLayout.addRow("Output 'Scene' folder location (optional, blank will output in same folder as 'Keychains'):", self.outputDirSelector)
+    parametersFormLayout.addRow("Output 'Scene' folder location (optional, blank will output in the folder holding the 'Keychains' folder):", self.outputDirSelector)
 
     # Adds bash directory finder
     self.bashDirSelector = ctk.ctkPathLineEdit()
@@ -111,13 +111,13 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.bashDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
     self.bashDirSelector.settingKey = 'bashDir'
-    parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the same folder as 'Keychain'):", self.bashDirSelector)
+    parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the the folder holding the 'Keychains' folder):", self.bashDirSelector)
 
     # Adds openSCAD file finder
     self.openSCADFileSelector = ctk.ctkPathLineEdit()
     self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
     self.openSCADFileSelector.settingKey = 'openSCADDir'
-    parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the same folder as 'Keychain'):", self.openSCADFileSelector)
+    parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the the folder holding the 'Keychains' folder):", self.openSCADFileSelector)
 
     # Adds openSCAD directory finder
     self.openSCADDirSelector = ctk.ctkPathLineEdit()
@@ -315,6 +315,10 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         '''
         return True
 
+    if (inputDir[len(str(inputDir))-1:] != '/'):
+        inputDir = inputDir[:len(str(inputDir))-10]
+    else :
+        inputDir = inputDir[:len(str(inputDir))-11]
     width = int(width)
     length = int(length)
     maxKeychainInput = int(maxKeychainInput)
@@ -328,4 +332,4 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
     if (not(keepKeyName)):
         subprocess.call(['rm', '-r', 'Keychains'], cwd=inputDir)
         subprocess.call(['rm', '-r', 'Nametags'], cwd=inputDir)
-        
+
