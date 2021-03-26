@@ -121,8 +121,6 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
     # Adds openSCAD directory finder
     self.openSCADDirSelector = ctk.ctkPathLineEdit()
-    self.openSCADDirSelector.filters = ctk.ctkPathLineEdit.Dirs
-    self.openSCADDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
     self.openSCADDirSelector.currentPath = '/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
     self.openSCADDirSelector.settingKey = 'openSCADDir'
     parametersFormLayout.addRow("Location of 'OpenSCAD' folder (required if OpenSCAD isn't located here):", self.openSCADDirSelector)
