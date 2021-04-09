@@ -1,4 +1,5 @@
 # Brain Keychain Automation
+![Keychain](https://i.gyazo.com/7ca2baa9c5a6873565bca4f641b4f961.jpg)
 
 [Tutorial (ppt)](https://docs.google.com/presentation/d/1Bq0jW6ZUMaFMooyvN8xE0ZmX54jMMEjBkEPmdlKC7bg/edit#slide=id.gae891ae01e_0_3 "Tutorial (ppt)")  
 Tested on 3D Slicer 4.10.2
@@ -7,8 +8,6 @@ Tested on 3D Slicer 4.10.2
 
 - MacOS  
 - [3D Slicer](https://slicer.kitware.com/midas3/folder/274 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location")
-
-![Keychain](https://i.gyazo.com/7ca2baa9c5a6873565bca4f641b4f961.jpg)
 
 ## How To
 
