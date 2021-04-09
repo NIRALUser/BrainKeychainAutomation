@@ -31,6 +31,7 @@ Tested on 3D Slicer 4.10.2
 ## 2.) sceneCreator  
 
 ### sceneCreatorModule (sceneCreator.py)
+![SceneCreatorUI](https://i.gyazo.com/1ee22cb918d47c31f9d41660dd6438ef.png)
 - Download the sceneCreator folder if you haven't already.
 - Add sceneCreatorModule the same way you added BrainKeyCreatorExtension.  
 - Specify a print surface width and length. Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
