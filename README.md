@@ -8,7 +8,7 @@ Tested on 3D Slicer 4.10.2
 - MacOS  
 - [3D Slicer](https://slicer.kitware.com/midas3/folder/274 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location")
 
-![used](https://user-images.githubusercontent.com/46611006/114219698-015d2800-9939-11eb-8602-75d78fbb4985.jpeg)
+![Keychain](https://i.gyazo.com/df2916053e64580fd9c12f6ab2740569.jpg)
 
 ## How To
 
