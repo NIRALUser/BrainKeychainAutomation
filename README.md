@@ -87,7 +87,6 @@ Or the default string match (what you choose to name it)
 * Fourth pattern checks if the string prefix equals stx_stx_noscale and then takes the next 6 characters in the string (not including the _ after stx_stx_noscale).
 * Final (default) pattern takes all characters from the string input filename.
 
-### keyChainTitle.scad
 
 ## 3.) Printing
 - Download slicing software such as Ultimaker Cura and open it.
