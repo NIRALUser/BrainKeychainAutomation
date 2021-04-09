@@ -15,7 +15,8 @@ Tested on 3D Slicer 4.10.2
 - Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
 - Click 'Install Extensions', then click the search bar in the top right corner.  
 - Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
-## 1.) keyChainCreator 
+
+## 2.) Confugure BrainKeyCreatorExtension 
 
 ### BrainKeyCreatorExtension.py  
 ![KeyCreatorExtensionUI](https://i.gyazo.com/2b89103a665caf84f51db00a3377cf85.png)
@@ -29,13 +30,13 @@ Tested on 3D Slicer 4.10.2
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
 - After it has finished running you should have a directory called 'Keychains' in the output folder you specified, or the same as your input directory if you didn't write an output location.   
 
-## 2.) sceneCreator  
+## 2.) Configure SceneCreator  
 
 ### sceneCreatorModule (sceneCreator.py)
 ![SceneCreatorUI](https://i.gyazo.com/1ee22cb918d47c31f9d41660dd6438ef.png)
-- Download the sceneCreator folder if you haven't already.
 - Add sceneCreatorModule the same way you added BrainKeyCreatorExtension.  
-- Specify a print surface width and length. Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
+- Specify a print surface width and length.  
+- Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
 - This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.  
 - Give the location of the input/ouput folders. The input folder in the location of the 'Keychains' folder. Just like the last script, if you don't give an output location it will automatically put it where the input (Keychains) folder is.  
 - Give the location of the bash file and openSCAD file (keyChainNameTagCreator.bash and keyChainTitle.scad) in the format of the example input.
@@ -45,14 +46,11 @@ Tested on 3D Slicer 4.10.2
 
 
 ### keyChainNameTagCreator.bash (sceneCreator.py continued)  
-- Download keyChainTitle.scad and keyChainNameTagCreator.bash.     
-- Then click on the keyChainNameTagCreator.bash file.  
 - If it says you do not have permission to run this file, you may need to run this command in the directory with the Bash file.  
 ```bash
 chmod 755 keyChainNameTagCreator.bash 
 ```
 - If that does not work then run another chmod command that will give your device permission to run the executable.  
-- After it is done running you will have a directory containing nametags with a substring title based on the surface filename.  
 
 **Note**  
 
