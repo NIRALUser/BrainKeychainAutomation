@@ -8,6 +8,8 @@ Tested on 3D Slicer 4.10.2
 - MacOS  
 - [3D Slicer](https://slicer.kitware.com/midas3/folder/274 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location")
 
+![Alt text](relative/path/to/img.jpg?raw=true "Title")
+
 ## How To
 
 ## 1.) keyChainCreator 
