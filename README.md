@@ -30,11 +30,11 @@ Tested on 3D Slicer 4.10.2
 - Click 'Apply' and let the module run. If it says that 3D Slicer is not responding or has a loading icon, do not worry. The module takes roughly 3-5 minutes to render each keychain.  
 - After it has finished running you should have a directory called 'Keychains' in the output folder you specified, or the same as your input directory if you didn't write an output location.   
 
-## 2.) Configure SceneCreator  
+## 2.) Configure KeySceneCreatorExtension  
 
-### sceneCreatorModule (sceneCreator.py)
+### KeySceneCreatorExtension.py
 ![SceneCreatorUI](https://i.gyazo.com/1ee22cb918d47c31f9d41660dd6438ef.png)
-- Add sceneCreatorModule the same way you added BrainKeyCreatorExtension.  
+- Add KeySceneCreatorExtension.py the same way you added BrainKeyCreatorExtension.  
 - Specify a print surface width and length.  
 - Each keychain should be less than 50 mm in length and width. Each keychain is allocated a 50 mm x 50 mm block on the print surface with an additional 20 mm in length for the nametag. Total, each keychain/nametag combination will an allocated block of 50 mm in width and 70 mm in length.  
 - This means if you specify a print surface with a width of 160 mm and length of 150 mm, it will output a 3 x 2 (width x length) field of keychains.  
