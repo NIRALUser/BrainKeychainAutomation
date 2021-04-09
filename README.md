@@ -14,6 +14,7 @@ Tested on 3D Slicer 4.10.2
 ## 1.) keyChainCreator 
 
 ### BrainKeyCreatorExtension.py  
+![KeyCreatorExtensionUI](https://i.gyazo.com/2b89103a665caf84f51db00a3377cf85.png)
 - Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
 - Click 'Install Extensions', then click the search bar in the top right corner.  
 - Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
