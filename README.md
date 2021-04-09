@@ -11,15 +11,16 @@ Tested on 3D Slicer 4.10.2
 
 ## How To
 
+## 1.) Download the repository and note where you saved it.
+- Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
+- Click 'Install Extensions', then click the search bar in the top right corner.  
+- Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
 ## 1.) keyChainCreator 
 
 ### BrainKeyCreatorExtension.py  
 ![KeyCreatorExtensionUI](https://i.gyazo.com/2b89103a665caf84f51db00a3377cf85.png)
-- Open 3D Slicer and click on the extensions button in the top right corner of the screen (it is blue and right next to the python logo).
-- Click 'Install Extensions', then click the search bar in the top right corner.  
-- Search 'MeshToLabelMap' then click install (you will need to reload 3D Slicer after installing).  
-- Download BrainKeyCreatorExtension.py. Open 3D Slicer again and click on 'edit' at the very top of your screen and then click on 'Application Settings'.  
-- Click on 'Modules' and then either click 'Add' and specify where you downloaded the module, or drag the file location into the 'Additional modules' section. 
+- Open 3D Slicer again and click on 'edit' at the very top of your screen and then click on 'Application Settings'.  
+- Click on 'Modules' and then either click 'Add' and specify where you downloaded the module (BrainKeyCreatorExtension.py), or drag the file location into the 'Additional modules' section. 
 - Close and then open, or restart 3D Slicer so that the module will load into your extension list.
 - To find the module, click on the search bar to the right of 'modules' on the home screen of 3D Slicer and search BrainKeyCreatorExtension.
 - You should then be able to load the extension and specify a directory for input surfaces (be sure to follow the example format that is in as a placeholder). 
