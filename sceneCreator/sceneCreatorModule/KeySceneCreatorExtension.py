@@ -18,7 +18,7 @@ class KeySceneCreatorExtension(ScriptedLoadableModule):
 
   def __init__(self, parent):
     ScriptedLoadableModule.__init__(self, parent)
-    self.parent.title = "KeySceneCreator Extension"
+    self.parent.title = "KeySceneCreator Extension v1.0"
     self.parent.categories = ["Keychain to print scene"]
     self.parent.dependencies = []
     self.parent.contributors = ["Christian Nell, Martin Styner (UNC-Chapel Hill)"]
@@ -69,61 +69,73 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
     self.widthInput = qt.QLineEdit()
     self.widthInput.textChanged.connect(newText)
     self.widthInput.text = '160'
-    parametersFormLayout.addRow("Input print surface width (in mm, required): ", self.widthInput)
+    parametersFormLayout.addRow("Surface width (in mm, req): ", self.widthInput)
 
 
     # Adds length text box
     self.lengthInput = qt.QLineEdit()
     self.lengthInput.textChanged.connect(newText)
     self.lengthInput.text = '150'
-    parametersFormLayout.addRow("Input print surface length (in mm, required): ", self.lengthInput)
+    parametersFormLayout.addRow("Surface length (in mm, req): ", self.lengthInput)
 
     # Adds max keychains per scene text box
     self.maxKeychainInput = qt.QLineEdit()
     self.maxKeychainInput.text = '6'
-    parametersFormLayout.addRow("Input maximum number of keychains per scene (optional, blank fills scene completely): ", self.maxKeychainInput)
+    parametersFormLayout.addRow("Max keychains per scene (opt): ", self.maxKeychainInput)
 
     # Adds length text box
     self.displayMax = qt.QLabel()
     self.displayMax.text = str((int(math.floor(int(str(self.widthInput.text)) / 50)) * int(math.floor(int(str(self.widthInput.text)) / 70))))
-    parametersFormLayout.addRow("Maximum number of keychains per scene based on input width and length: ", self.displayMax)
+    parametersFormLayout.addRow("Keychains per scene (computed): ", self.displayMax)
     isMaxDisplayLoaded = True
+
+    # Adds num of chars text box
+    self.maxCharsInput = slicer.qMRMLSliderWidget()
+    self.maxCharsInput.decimals = 0
+    self.maxCharsInput.tickInterval = 1
+    self.maxCharsInput.singleStep = 1
+    self.maxCharsInput.minimum = 1
+    self.maxCharsInput.maximum = 10
+    self.maxCharsInput.value = 7
+    self.maxCharsInput.setMRMLScene( slicer.mrmlScene )
+    self.maxCharsInput.setToolTip( "Max characters for each label." )
+    parametersFormLayout.addRow("Max characters for each label: ", self.maxCharsInput)
 
     # Adds search directory finder
     self.inputDirSelector = ctk.ctkPathLineEdit()
     self.inputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.inputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.inputDirSelector.currentPath = '/Users/christiannell/Desktop/Keychains'
+    self.inputDirSelector.currentPath = '/Users/X/Desktop/Keychains'
     self.inputDirSelector.settingKey = 'inputDir'
-    parametersFormLayout.addRow("Location of 'Keychains' folder (required):", self.inputDirSelector)
+    parametersFormLayout.addRow("'Keychains' folder (req):", self.inputDirSelector)
 
     # Adds output directory finder
     self.outputDirSelector = ctk.ctkPathLineEdit()
     self.outputDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.outputDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.outputDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.outputDirSelector.currentPath = '/Users/X/Desktop'
     self.outputDirSelector.settingKey = 'outputDir'
-    parametersFormLayout.addRow("Output 'Scene' folder location (optional, blank will output in the folder holding the 'Keychains' folder):", self.outputDirSelector)
+    parametersFormLayout.addRow("Output folder (blank = 'Keychains' folder):", self.outputDirSelector)
 
     # Adds bash directory finder
     self.bashDirSelector = ctk.ctkPathLineEdit()
     self.bashDirSelector.filters = ctk.ctkPathLineEdit.Dirs
     self.bashDirSelector.options = ctk.ctkPathLineEdit.ShowDirsOnly
-    self.bashDirSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator'
+    self.bashDirSelector.currentPath = '/Users/X/Desktop/sceneCreator'
     self.bashDirSelector.settingKey = 'bashDir'
-    parametersFormLayout.addRow("Folder the 'keyChainNameTagCreator.bash' file is in (optional if in the the folder holding the 'Keychains' folder):", self.bashDirSelector)
+    parametersFormLayout.addRow("Folder with 'keyChainNameTagCreator.bash'(blank = 'Keychains' folder):", self.bashDirSelector)
 
     # Adds openSCAD file finder
     self.openSCADFileSelector = ctk.ctkPathLineEdit()
-    self.openSCADFileSelector.currentPath = '/Users/christiannell/Desktop/NIRAL/BrainKeychainAutomation-main/sceneCreator/keyChainTitle.scad'
-    self.openSCADFileSelector.settingKey = 'openSCADDir'
-    parametersFormLayout.addRow("Location of 'keyChainTitle.scad' file (optional if in the the folder holding the 'Keychains' folder):", self.openSCADFileSelector)
+    self.openSCADFileSelector.currentPath = '/Users/X/Desktop/keyChainTitle.scad'
+    self.openSCADFileSelector.settingKey = 'openSCADFile'
+    parametersFormLayout.addRow("'keyChainTitle.scad' file (blank = in'Keychains' folder):", self.openSCADFileSelector)
 
     # Adds openSCAD directory finder
     self.openSCADDirSelector = ctk.ctkPathLineEdit()
     self.openSCADDirSelector.currentPath = '/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD'
     self.openSCADDirSelector.settingKey = 'openSCADDir'
-    parametersFormLayout.addRow("Location of 'OpenSCAD' folder (required if OpenSCAD isn't located here):", self.openSCADDirSelector)
+    parametersFormLayout.addRow("'OpenSCAD' exec (req):", self.openSCADDirSelector)
 
 
     #
@@ -149,7 +161,7 @@ class KeySceneCreatorExtensionWidget(ScriptedLoadableModuleWidget):
 
   def onApplyButton(self):
     logic = KeySceneCreatorExtensionLogic()
-    logic.run(self.widthInput.text, self.lengthInput.text, self.maxKeychainInput.text, 
+    logic.run(self.widthInput.text, self.lengthInput.text, self.maxKeychainInput.text, self.maxCharsInput,
         self.inputDirSelector.currentPath, self.outputDirSelector.currentPath, 
         self.bashDirSelector.currentPath, self.openSCADFileSelector.currentPath, 
         self.openSCADDirSelector.currentPath, self.keepKeychainNametag.checked)
@@ -165,7 +177,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
   https://github.com/Slicer/Slicer/blob/master/Base/Python/slicer/ScriptedLoadableModule.py
   """
 
-  def run(self, width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir, keepKeyName):
+  def run(self, width, length, maxKeychainInput, maxCharsInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir, keepKeyName):
     """
     Run the actual algorithm
     """
@@ -177,11 +189,11 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         zBoundCounter = 0
         xAxisIterator = 0
         yAxisIterator = 0
-        macthedKeys = list(matchedBrainTags.keys())
+        matchedKeys = sorted(list(matchedBrainTags.keys()))
         # Find max z height so that it can be used to raise other surfaces to that level (make level scene)
         while zBoundCounter < brainsPerScene:
             reader = vtk.vtkSTLReader()  
-            reader.SetFileName(matchedBrainTags[macthedKeys[zBoundCounter]])
+            reader.SetFileName(matchedBrainTags[matchedKeys[zBoundCounter]])
 
             mapper = vtk.vtkPolyDataMapper()
             mapper.SetInputConnection(reader.GetOutputPort())
@@ -189,9 +201,9 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
             bounds = mapper.GetBounds()
             keychainBounds.append(bounds)
             if ((bounds[1] - bounds[0] >= 50) or (bounds[3] - bounds[2] >= 50)):
-                macthedKeys.pop(zBoundCounter)
+                matchedKeys.pop(zBoundCounter)
                 logging.info('The following keychain was too big!')
-                logging.info(matchedBrainTags[macthedKeys[zBoundCounter]])
+                logging.info(matchedBrainTags[matchedKeys[zBoundCounter]])
             else:
                 if(bounds[4] > keychainZMax):
                     keychainZMax = bounds[4]
@@ -205,7 +217,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         while appendingCounter < brainsPerScene:
             # Append key chain
             reader = vtk.vtkSTLReader()  # Read keychain
-            reader.SetFileName(matchedBrainTags[macthedKeys[appendingCounter]])
+            reader.SetFileName(matchedBrainTags[matchedKeys[appendingCounter]])
 
             # Use mapper to get keychain bounds to correctly place in scene
             mapper = vtk.vtkPolyDataMapper()
@@ -214,7 +226,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
             bounds = mapper.GetBounds() #Return bounding box (array of six doubles) of data expressed as (xmin,xmax, ymin,ymax, zmin,zmax).
 
             trans = vtk.vtkTransform()   # Set translation
-            trans.Translate(xAxisIterator * 50, -(yAxisIterator * 70), keychainZMax - keychainBounds[appendingCounter][4])  # Add z offset to final translation
+            trans.Translate(xAxisIterator * 50 - bounds[0], -(yAxisIterator * 70) - bounds[2], keychainZMax - keychainBounds[appendingCounter][4])  # Add z offset to final translation
 
             process = vtk.vtkTransformPolyDataFilter()  # Process translate
             process.SetTransform(trans)
@@ -226,10 +238,11 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
 
             # Append name tag
             reader = vtk.vtkSTLReader() # Read nametag
-            reader.SetFileName(macthedKeys[appendingCounter])
+            reader.SetFileName(matchedKeys[appendingCounter])
 
             trans = vtk.vtkTransform()  # Set transltion
-            trans.Translate((xAxisIterator * 50) - 35, -(yAxisIterator * 70) + 5, keychainZMax)
+            #trans.Translate((xAxisIterator * 50) - 35, -(yAxisIterator * 70) + 5, keychainZMax)
+            trans.Translate((xAxisIterator * 50) - 5, -(yAxisIterator * 70) - 12, keychainZMax)
 
             process = vtk.vtkTransformPolyDataFilter()  # Process translate
             process.SetTransform(trans)
@@ -255,7 +268,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         writer.Write()
         return True
 
-    def sceneSetup(width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
+    def sceneSetup(width, length, maxKeychainInput, maxCharsInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir):
         inputWidth = width
         inputLength = length
         brainsPerXAxis = int(math.floor(inputWidth / 50))
@@ -266,7 +279,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
             if((maxKeychainInput < brainsPerScene) and (maxKeychainInput > 0)):
                 brainsPerScene = maxKeychainInput
 
-        subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile, inputDir], cwd=bashDir)
+        subprocess.call(['sh', 'keyChainNameTagCreator.bash', openSCADDir, openSCADFile, inputDir, str(maxCharsInput)], cwd=bashDir)
         # Gets user input for input directories
         brainDir = inputDir + "/Keychains/"
         nametagDir = inputDir + "/Nametags/"
@@ -275,7 +288,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         matchedBrainTags = {}
         brainScans = os.listdir(brainDir)
         # Matches the two if the brain filename contains the tag filename
-        for filename in os.listdir(nametagDir):
+        for filename in sorted(os.listdir(nametagDir)):
             for brain in brainScans:
                 if brain[len(brain)-3:] == 'stl':
                     if(filename[:len(filename)-4] in brain):
@@ -284,15 +297,15 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         totalBrainLength = len(matchedBrainTags)
         sceneCount = math.ceil(float(totalBrainLength) / brainsPerScene)  # Finds number of scenes that will be printed
         sceneIterator = 0
-        finalMacthedKeys = list(matchedBrainTags.keys()) 
+        finalMatchedKeys = sorted(list(matchedBrainTags.keys()))
         while sceneIterator < sceneCount:
             i = 0 # Iterator for deleting already used keychains
             createScene(matchedBrainTags, brainsPerScene, sceneIterator, brainsPerXAxis, brainsPerYAxis, outputDir)
             if(not(sceneIterator == sceneCount - 1)):
                 while(i < brainsPerScene):
-                    del matchedBrainTags[finalMacthedKeys[i]]
+                    del matchedBrainTags[finalMatchedKeys[i]]
                     i += 1
-                finalMacthedKeys = finalMacthedKeys[brainsPerScene:]
+                finalMatchedKeys = finalMatchedKeys[brainsPerScene:]
             sceneIterator += 1
 
         # Create test visual of what the scene looks like
@@ -326,7 +339,7 @@ class KeySceneCreatorExtensionLogic(ScriptedLoadableModuleLogic):
         openSCADFile = inputDir + '/keyChainTitle.scad'
     if (len(str(outputDir)) == 0):
         outputDir = inputDir
-    sceneSetup(width, length, maxKeychainInput, inputDir, outputDir, bashDir, openSCADFile, openSCADDir)
+    sceneSetup(width, length, maxKeychainInput, int(maxCharsInput.value), inputDir, outputDir, bashDir, openSCADFile, openSCADDir)
     if (not(keepKeyName)):
         subprocess.call(['rm', '-r', 'Keychains'], cwd=inputDir)
         subprocess.call(['rm', '-r', 'Nametags'], cwd=inputDir)
