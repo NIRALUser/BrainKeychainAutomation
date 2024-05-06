@@ -7,7 +7,7 @@ Tested on 3D Slicer 4.10.2
 ## Prerequisites
 
 - MacOS  
-- [3D Slicer](https://slicer-packages.kitware.com/#collection/5f4474d0e1d8c75dfc70547e/folder/60add36eae4540bf6a89be73 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location")
+- [3D Slicer](https://slicer-packages.kitware.com/#collection/5f4474d0e1d8c75dfc70547e/folder/60add36eae4540bf6a89be73 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location") - After download, openSCAD needs to be opened via right-click & "Open" as it is not an official Apple-signed application
 
 ## How To
 
