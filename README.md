@@ -2,12 +2,12 @@
 ![Keychain](https://i.gyazo.com/7ca2baa9c5a6873565bca4f641b4f961.jpg)
 
 [Tutorial (ppt)](https://docs.google.com/presentation/d/1Bq0jW6ZUMaFMooyvN8xE0ZmX54jMMEjBkEPmdlKC7bg/edit#slide=id.gae891ae01e_0_3 "Tutorial (ppt)")  
-Tested on 3D Slicer 4.10.2
+Tested on 3D Slicer 4.10.2 (newer versions of Slicer will currently not work)
 
 ## Prerequisites
 
 - MacOS  
-- [3D Slicer](https://slicer-packages.kitware.com/#collection/5f4474d0e1d8c75dfc70547e/folder/60add36eae4540bf6a89be73 "Download location") (version 4.10.2) and [openSCAD](https://www.openscad.org/downloads.html "Download location") - After download, openSCAD needs to be opened via right-click & "Open" as it is not an official Apple-signed application
+- [3D Slicer](https://slicer-packages.kitware.com/#collection/5f4474d0e1d8c75dfc70547e/folder/60add36eae4540bf6a89be73 "Download location") (version 4.10.2, newer versions of Slicer will currently not work) and [openSCAD](https://www.openscad.org/downloads.html "Download location") - After download, openSCAD needs to be opened via right-click & "Open" as it is not an official Apple-signed application
 
 ## How To
 
